@@ -1,19 +1,26 @@
+
+/*
+* params {string} name name of character instance
+* params {string} type must be type of character
+* params {string} ability in words of character
+* params {string} speed this is the speed of the character
+**/
 function Character(name, type, ability, speed) {
-		this.name = name;
+		this.name = name || "cookie monster";
 		this.type = type;
 		this.ability = ability;
 		this.life = 100;
+		this.speed = speed;
 		this.changeAbility = function(newAbility) {
 			this.ability = newAbility;
 		};
-		this.speed = speed;
-		this.addDamage = function(weapon) {
+		this.addDamage = function(weaponInstance) {
 			if (this.life <= 0) {
 				console.log("im in add damage if less eq to this.life");
 				this.ability = "none";
-				alert(this.name + " died. Game over for" + this.name);
+				console.log(this.name + " died. Game over for" + this.name);
 			}
-			this.life = this.life - weapon.damage;
+			this.life = this.life - weaponInstance.damage;
 
 		};
 }
@@ -33,11 +40,11 @@ function Weapons(type, damage, weight) {
 		this.type = type || "pea shooter";
 		this.damage = damage || 0;
 		this.weight = weight || "1 kilo";
+		this.chance = Math.floor(Math.random() * 10);
 		this.fire = function(target) {
 			console.log("pew pew");
-			var chance = Math.floor(Math.random() * 10);
-			console.log(chance);
-			if (chance < 3) {
+			console.log(this.chance);
+			if (this.chance < 3) {
 				target.addDamage(this);
 			}
 		};
